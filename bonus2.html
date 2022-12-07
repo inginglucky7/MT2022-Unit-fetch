@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="w-full text-center text-4xl font-bold mt-4">{{pokemon.name}}</div>
+        <img class="justify-center items-center mx-auto" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/132.png" alt="Ditto">
+        <div class="text-center mx-auto">
+            <h2>Abilities : <p>{{pokemon.abilities[0].ability.name}}</p>
+                <p>{{pokemon.abilities[1].ability.name}}</p></h2>
+            
+        </div>
+        <br/>
+        <div class="text-center mx-auto">
+            <h2>Height : </h2>
+            {{pokemon.height}}
+        </div>
+        <br/>
+        <div class="text-center mx-auto">
+            <h2>Weight : </h2>
+            {{pokemon.weight}}
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var vue = new Vue({
+        el: '#app',
+        data: {
+            pokemon: {},
+            selected: ""
+        }
+    })
+</script>
+<script type="text/javascript">
+    fetch('https://pokeapi.co/api/v2/pokemon/ditto')
+    .then(response => response.json())
+    .then((data) => {
+        vue.pokemon = data
+    })
+</script>
+</html>

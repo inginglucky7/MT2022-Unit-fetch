@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div id="wrapper">
+            <div id="content">
+                <img id="cat" class="m-auto mt-[10rem] w-[30%]" @click="move" src="https://media.tenor.com/2roX3uxz_68AAAAM/cat-space.gif" alt="">
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    let vue = new Vue({
+        el:"#app",
+        data: {
+            n1: 0,
+            n2: 0,
+        },
+        methods: {
+            move: function(event) {
+                
+            }
+        },
+    }
+    )
+</script>
+<script>
+    document.onmousemove = (event) => {
+        const {
+            clientX,
+            clientY
+        } = event
+        document.querySelector("#cat").style.transform = translate(clientX, clientY)
+    }
+</script>
+</html>

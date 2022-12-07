@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab JSON Fetch</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style type="text/css">
+    .team_item-img{
+      width: 50%;
+      max-width: 200px;
+      margin: auto;
+      margin-top: -15%;
+    }
+    #our_team{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+    }
+    [data-gender="male"] {
+      color: #00bcd4;
+    }
+    [data-gender="male"]::before{
+      content: "🤴";
+    }
+     [data-gender="female"] {
+      color: #d400a2;
+    }
+    [data-gender="female"]::before{
+      content: "👸";
+    }
+    [data-gender]::before{
+      margin-right: 0.2em;
+      font-size: 1.5em;
+    }
+</style>
+</head>
+<body>
+  <div id="app">
+    <div class="container mx-auto py-8">
+      <section class="py-8 text-center" v-if="!loaded">
+        ... Loading
+      </section>
+      <section v-if="loaded">
+        <h1 class="text-center text-3xl font-bold mb-4">Our Team</h1>
+        <div id="our_team">
+          
+          <div class="team_item shadow-lg rounded-lg overflow-hidden pb-4" v-for="(u,ui) in users_data.users">
+            <img :src="`https://picsum.photos/id/${u.id*3}/400/150`" class="w-full">
+            <div class="text-center">
+              <img :src="u.image" class="rounded-full shadow-lg team_item-img bg-white">
+              <h2 class="mt-4 text-2xl font-bold text-gray-500">@{{u.username}}</h2>
+              <h3 :data-gender="u.gender">{{u.firstName}} {{u.lastName}}</h3>
+              <a :href="`mailto:${u.email}`" class="text-gray-500 hover:text-gray-600">
+                {{u.email}}
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+  <script type="text/javascript">
+    let vue = new Vue({
+     el:'#app',
+     data:{
+       sitename:'ITKMITL',
+       loaded:false,
+       skip:0,
+       limit:6,
+       users_data:{
+
+       }
+     }
+   })
+ </script>
+
+ <script type="text/javascript">
+  fetch('https://dummyjson.com/users')
+  .then(response => response.json())
+  .then(json => {
+    vue.users_data = json
+    vue.loaded = true
+  })
+</script>
+</body>
+</html>
